@@ -72,6 +72,6 @@ variable "postgresql_enable_ssl" {
 }
 
 variable "google_cloud_storage_bucket_name" {
-  type    = bool
+  type    = string
   default = false
 }
