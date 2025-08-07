@@ -1,0 +1,24 @@
+volumes:
+  terraform-data:
+    driver: local
+
+services:
+  # docker-compose run --rm terraform plan -var-file=environments/staging.tfvars
+  terraform:
+    image: hashicorp/terraform:1.4.5
+    working_dir: /terraform
+    platform: linux/amd64
+    volumes:
+      - terraform-data:/.terraform-data
+      - $PWD:/terraform:rw
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - /Users/bruno/.ssh/id_rsa:/.ssh/id_rsa:ro
+    environment:
+      TF_DATA_DIR: /.terraform-data
+      GIT_SSH_COMMAND: ssh -i /.ssh/id_rsa -o IdentitiesOnly=yes -o StrictHostKeyChecking=no
+      GOOGLE_CREDENTIALS: ${GOOGLE_CREDENTIALS:-}
+      TF_WORKSPACE: ${TF_WORKSPACE}
+      GOOGLE_PROJECT: ${GOOGLE_PROJECT:-}
+      GOOGLE_REGION: ${GOOGLE_REGION:-us-central1}
+      TF_VAR_service_name: ${TF_VAR_service_name:-}
+      TF_VAR_service_image: ${TF_VAR_service_image:-}
