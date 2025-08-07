@@ -21,6 +21,12 @@ variable "service_image" {
   default     = "orthancteam/orthanc-pre-release:wado-rs-threads"
 }
 
+variable "google_credentials" {
+  description = "google credentials for service account"
+  type        = string
+}
+
+
 variable "services" {
   description = "services to enable for the project"
   type        = list(string)

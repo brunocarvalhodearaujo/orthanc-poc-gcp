@@ -1,3 +1,15 @@
+resource "google_secret_manager_secret" "service_account" {
+  secret_id = "secret-1"
+  replication {
+    auto {}
+  }
+}
+
+resource "google_secret_manager_secret_version" "db_socket_path_secret_version_data" {
+  secret      = google_secret_manager_secret.service_account.name
+  secret_data = var.google_credentials
+}
+
 resource "google_cloud_run_v2_service" "orthanc" {
   name     = format("%s-%s-%s", var.service_name, terraform.workspace, var.region)
   location = var.region
@@ -18,6 +30,18 @@ resource "google_cloud_run_v2_service" "orthanc" {
       max_instance_count = 2
     }
 
+    volumes {
+      name = "gcp-service-account"
+      secret {
+        secret       = google_secret_manager_secret.service_account.secret_id
+        default_mode = 292 # 0444
+        items {
+          version = google_secret_manager_secret.service_account.secret_id
+          path    = google_secret_manager_secret.service_account.secret_id
+        }
+      }
+    }
+
     containers {
       image = var.service_image
 
@@ -28,6 +52,11 @@ resource "google_cloud_run_v2_service" "orthanc" {
           memory : "2048Mi"
           cpu : 2
         }
+      }
+
+      volume_mounts {
+        name       = google_secret_manager_secret.service_account.secret_id
+        mount_path = "/googleServiceAccountFile.json"
       }
 
       env {
@@ -92,7 +121,7 @@ resource "google_cloud_run_v2_service" "orthanc" {
 
       env {
         name  = "ORTHANC__GOOGLE_CLOUD_STORAGE__SERVICE_ACCOUNT_FILE"
-        value = "/path/to/googleServiceAccountFile.json"
+        value = "/googleServiceAccountFile.json"
       }
 
       env {
