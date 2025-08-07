@@ -71,12 +71,12 @@ resource "google_cloud_run_v2_service" "orthanc" {
 
       env {
         name  = "ORTHANC__POSTGRESQL__DATABASE"
-        value = "cgsg-dserver-index"
+        value = var.postgresql_database
       }
 
       env {
         name  = "ORTHANC__POSTGRESQL__PASSWORD"
-        value = "loremipsum"
+        value = var.postgresql_password
       }
 
       env {
@@ -101,22 +101,22 @@ resource "google_cloud_run_v2_service" "orthanc" {
 
       env {
         name  = "ORTHANC__POSTGRESQL__HOST"
-        value = "sample.database"
+        value = var.postgresql_host
       }
 
       env {
         name  = "ORTHANC__POSTGRESQL__PORT"
-        value = "5432"
+        value = tostring(var.postgresql_port)
       }
 
       env {
         name  = "ORTHANC__POSTGRESQL__USERNAME"
-        value = "postgres"
+        value = var.postgresql_username
       }
 
       env {
         name  = "ORTHANC__POSTGRESQL__ENABLE_SSL"
-        value = "true"
+        value = tostring(var.postgresql_enable_ssl)
       }
 
       env {
@@ -126,12 +126,12 @@ resource "google_cloud_run_v2_service" "orthanc" {
 
       env {
         name  = "ORTHANC__GOOGLE_CLOUD_STORAGE__BUCKET_NAME"
-        value = "test-orthanc-storage-plugin"
+        value = var.google_cloud_storage_bucket_name
       }
 
       env {
         name  = "ORTHANC__GOOGLE_CLOUD_STORAGE__ROOT_PATH"
-        value = "test-orthanc-storage-plugin"
+        value = ""
       }
 
       env {
@@ -166,7 +166,7 @@ resource "google_cloud_run_v2_service" "orthanc" {
 
       env {
         name  = "ORTHANC__DICOM_AET"
-        value = "CGSG_DSC"
+        value = "POC_ORTHANC"
       }
 
       env {
@@ -257,7 +257,7 @@ resource "google_cloud_run_v2_service" "orthanc" {
 
       env {
         name  = "ORTHANC__DATABASE_SERVER_IDENTIFIER"
-        value = "rededor"
+        value = "poc"
       }
 
       env {
@@ -287,7 +287,7 @@ resource "google_cloud_run_v2_service" "orthanc" {
 
       env {
         name  = "ORTHANC__AUTHENTICATION_ENABLED"
-        value = "true"
+        value = "false"
       }
 
       env {

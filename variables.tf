@@ -26,7 +26,6 @@ variable "google_credentials" {
   type        = string
 }
 
-
 variable "services" {
   description = "services to enable for the project"
   type        = list(string)
@@ -40,4 +39,39 @@ variable "services" {
     "eventarc.googleapis.com",
     "workflows.googleapis.com"
   ]
+}
+
+variable "postgresql_database" {
+  type      = string
+  sensitive = true
+}
+
+variable "postgresql_username" {
+  type      = string
+  sensitive = true
+}
+
+variable "postgresql_password" {
+  type      = string
+  sensitive = true
+}
+
+variable "postgresql_host" {
+  type      = string
+  sensitive = true
+}
+
+variable "postgresql_port" {
+  type    = number
+  default = 5432
+}
+
+variable "postgresql_enable_ssl" {
+  type    = bool
+  default = false
+}
+
+variable "google_cloud_storage_bucket_name" {
+  type    = bool
+  default = false
 }
