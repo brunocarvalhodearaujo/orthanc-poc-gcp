@@ -12,11 +12,6 @@ terraform {
       version = ">= 3.1.0"
     }
   }
-
-  backend "gcs" {
-    bucket = "mable-terraform-remote-states"
-    prefix = "mundial/server"
-  }
 }
 
 provider "google" {}
