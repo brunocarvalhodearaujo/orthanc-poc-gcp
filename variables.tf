@@ -43,12 +43,10 @@ variable "services" {
 
 variable "postgresql_database" {
   type      = string
-  sensitive = true
 }
 
 variable "postgresql_username" {
   type      = string
-  sensitive = true
 }
 
 variable "postgresql_password" {
@@ -58,7 +56,6 @@ variable "postgresql_password" {
 
 variable "postgresql_host" {
   type      = string
-  sensitive = true
 }
 
 variable "postgresql_port" {
@@ -73,5 +70,4 @@ variable "postgresql_enable_ssl" {
 
 variable "google_cloud_storage_bucket_name" {
   type    = string
-  default = false
 }
