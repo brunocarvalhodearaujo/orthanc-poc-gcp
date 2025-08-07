@@ -42,11 +42,11 @@ variable "services" {
 }
 
 variable "postgresql_database" {
-  type      = string
+  type = string
 }
 
 variable "postgresql_username" {
-  type      = string
+  type = string
 }
 
 variable "postgresql_password" {
@@ -55,7 +55,7 @@ variable "postgresql_password" {
 }
 
 variable "postgresql_host" {
-  type      = string
+  type = string
 }
 
 variable "postgresql_port" {
@@ -69,5 +69,5 @@ variable "postgresql_enable_ssl" {
 }
 
 variable "google_cloud_storage_bucket_name" {
-  type    = string
+  type = string
 }
